@@ -1,101 +1,93 @@
-# MilitaryManagement
 
-📌 **Ονομασία Εφαρμογής:** MilitaryManagement  
-🎯 **Σκοπός:** Παρακολούθηση και διαχείριση στρατιωτικού προσωπικού, εκπαιδεύσεων, στατιστικών, ημερολογίου και αρχείων (βεβαιώσεις, πτυχία).  
+# ⚓ MilitaryManagement_Frontend
+
+Frontend εφαρμογή διαχείρισης στρατιωτικού προσωπικού & εκπαιδεύσεων για το Πολεμικό Ναυτικό.
+
+![Build](https://img.shields.io/badge/build-passing-brightgreen)
+![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-blue)
 
 ---
 
-## 🚀 Τεχνολογίες
+## 🧰 Τεχνολογίες
 
-### Frontend:
 - React 18 + TypeScript
-- React Router DOM v7
+- Vite
 - Tailwind CSS
-- FontAwesome Icons
-- React Hook Form
-- React Toastify
-- React Tooltip
-- Recharts
-- React Big Calendar
-
-### Backend:
-- Node.js + Express
-- MongoDB (Mongoose)
-- JWT Authentication
-- Swagger (API Documentation)
-- File Uploads
-- CORS Enabled
+- Axios
+- React Router DOM
+- Jest + React Testing Library
 
 ---
 
-## ⚙️ Οδηγίες Εκτέλεσης
-
-### 1️⃣ Frontend
+## 🚀 Τοπική Ανάπτυξη
 
 ```bash
-cd MilitaryManagement_Frontend
 npm install
 npm run dev
 ```
 
-### 2️⃣ Backend
-
-```bash
-cd MilitaryManagement_Backend
-npm install
-npm run dev
-```
-
-🔐 Το backend χρησιμοποιεί MongoDB Atlas. Η σύνδεση γίνεται μέσω `.env` με URI του τύπου:
-
-```
-MONGO_URI=mongodb+srv://<username>:<password>@cluster0.xxxxxx.mongodb.net/MilitaryManagementDB
-```
+Η εφαρμογή θα τρέχει στη διεύθυνση:  
+👉 **http://localhost:5173**
 
 ---
 
-## 🧪 Tests (Frontend)
+## 🧪 Τεστ
 
-Έγινε ρύθμιση με:
-
-- Jest
-- React Testing Library
-- TypeScript
-- jsdom
-
-Εκτέλεση:
 ```bash
 npm test
 ```
 
 ---
 
-## ✨ Features
+## 🏗️ Build Παραγωγής
 
-- ✅ CRUD για **Προσωπικό** και **Εκπαίδευση**
-- ✅ Ανέβασμα αρχείων (πτυχία/βεβαιώσεις)
-- ✅ Στατιστικά και Διαγράμματα
-- ✅ Ημερολόγιο Εκπαιδεύσεων
-- ✅ Πλήρες Login/Logout με JWT Token
-- ✅ Ρόλοι (π.χ. Admin)
-- ✅ Responsive Design (Tailwind)
-- ✅ Tooltips & Toast Ειδοποιήσεις
-- ✅ Πλήρης οργάνωση κώδικα και μονάδων
+```bash
+npm run build
+```
+
+Ο φάκελος παραγωγής είναι ο `dist/`.
 
 ---
 
-## 🗂 Δομή Frontend
+## 📤 Deploy
 
-- `components/`: όλα τα components οργανωμένα σε υποφακέλους
-- `pages/`: Personnel, Training, Statistics, Calendar, Login, Dashboard
-- `App.tsx`: routing και setup
-- `Navbar.tsx`: responsive navbar με logo & icons
-- `assets/`: logo, εικόνες
+Μπορεί να γίνει deploy στον Netlify, GitHub Pages ή άλλο static hosting, απλώς ανεβάζοντας τον φάκελο `dist`.
 
 ---
 
-## 👤 Στοιχεία Υλοποιητή
+## 📁 Δομή Project
 
-- **Όνομα:** Γεώργιος Παναγόπουλος  
-- **Έτος Υλοποίησης:** 2025  
-- **Τμήμα:** Coding Factory - Τελική Εργασία  
+```
+src/
+├── assets/
+├── components/
+│   ├── navbar/
+│   ├── personnel/
+│   └── training/
+├── pages/
+├── App.tsx
+├── index.tsx
+├── axios.ts
+└── ...
+```
+
+---
+
+## 📌 Σημειώσεις
+
+- Το backend τρέχει ξεχωριστά και η επικοινωνία γίνεται μέσω Axios.
+- Για τον πλήρη έλεγχο πρόσβασης, χρησιμοποιείται JWT authentication.
+
+---
+
+## 👤 Συντάκτης
+
+George Panagopoulos  
+📧 george6627@hotmail.com
+🔗 [GitHub](https://github.com/GiorgosPanagopoulos)
+
+---
+## 📄 Άδεια
+
+MIT License
