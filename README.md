@@ -90,4 +90,4 @@ George Panagopoulos
 ---
 ## 📄 Άδεια
 
-MIT License
+MIT © 2025 Giorgos Panagopoulos

@@ -1,69 +1,52 @@
-import React from "react";
 
-// Ορισμός τύπου για το προσωπικό
-export interface Personnel {
-  _id?: string;
-  firstName: string;
-  lastName: string;
-  rank: string;
-  serviceNumber: string;
-  phone: string;
-  email: string;
-  unit: string;
-}
+import React, { useEffect, useState } from "react";
+import axios from "../axios";
+import PersonnelForm from "../components/personnel/PersonnelForm";
+import PersonnelList from "../components/personnel/PersonnelList";
+import { Personnel } from "../types/Personnel";
 
-// Props που παίρνει το component
-interface Props {
-  data: Personnel[];
-  onEdit: (person: Personnel) => void;
-  onDelete: (id: string) => void;
-}
+export default function PersonnelPage() {
+  const [personnelList, setPersonnelList] = useState<Personnel[]>([]);
+  const [selected, setSelected] = useState<Personnel | null>(null);
 
-export default function PersonnelList({ data, onEdit, onDelete }: Props) {
+  const fetchPersonnel = async () => {
+    const res = await axios.get("/personnel");
+    setPersonnelList(res.data);
+  };
+
+  useEffect(() => {
+    fetchPersonnel();
+  }, []);
+
+  const handleCreateOrUpdate = async (person: Personnel) => {
+    if (person._id) {
+      await axios.put(`/personnel/${person._id}`, person);
+    } else {
+      await axios.post("/personnel", person);
+    }
+    fetchPersonnel();
+    setSelected(null);
+    return person;
+  };
+
+  const handleDelete = async (id: string) => {
+    await axios.delete(`/personnel/${id}`);
+    fetchPersonnel();
+  };
+
   return (
-    <div className="mt-6">
-      <h3 className="text-xl font-bold mb-2">Καταχωρημένο Προσωπικό</h3>
-      <table className="w-full table-auto border">
-        <thead>
-          <tr className="bg-gray-100">
-            <th className="p-2 border">Όνομα</th>
-            <th className="p-2 border">Επώνυμο</th>
-            <th className="p-2 border">Βαθμός</th>
-            <th className="p-2 border">Αρ. Μητρώου</th>
-            <th className="p-2 border">Μονάδα</th>
-            <th className="p-2 border">Τηλέφωνο</th>
-            <th className="p-2 border">Email</th>
-            <th className="p-2 border">Ενέργειες</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((person) => (
-            <tr key={person._id ?? person.email}>
-              <td className="p-2 border">{person.firstName}</td>
-              <td className="p-2 border">{person.lastName}</td>
-              <td className="p-2 border">{person.rank}</td>
-              <td className="p-2 border">{person.serviceNumber}</td>
-              <td className="p-2 border">{person.unit}</td>
-              <td className="p-2 border">{person.phone}</td>
-              <td className="p-2 border">{person.email}</td>
-              <td className="p-2 border space-x-2">
-                <button
-                  onClick={() => onEdit(person)}
-                  className="bg-yellow-500 text-white px-2 py-1 rounded"
-                >
-                  Επεξεργασία
-                </button>
-                <button
-                  onClick={() => person._id && onDelete(person._id)}
-                  className="bg-red-600 text-white px-2 py-1 rounded"
-                >
-                  Διαγραφή
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+      <div className="max-w-5xl mx-auto p-4">
+        <h1 className="text-2xl font-bold mb-4">Διαχείριση Προσωπικού</h1>
+        <PersonnelForm
+            onSubmit={handleCreateOrUpdate}
+            initialData={selected || undefined}
+        />
+        <hr className="my-6" />
+        <PersonnelList
+            data={personnelList}
+            onEdit={setSelected}
+            onDelete={handleDelete}
+        />
+      </div>
   );
 }
