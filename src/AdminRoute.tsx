@@ -1,8 +1,18 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 
-export default function AdminRoute({ children }: { children: JSX.Element }) {
+interface Props {
+  children: JSX.Element;
+}
+
+export default function AdminRoute({ children }: Props) {
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
-  return token && role === "admin" ? children : <Navigate to="/login" />;
+  const location = useLocation();
+
+  if (!token || role !== "admin") {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  return children;
 }

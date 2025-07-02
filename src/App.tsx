@@ -26,7 +26,7 @@ function App() {
                     path="/personnel"
                     element={
                         <PrivateRoute>
-                            <PersonnelPage data={[]} onEdit={() => {}} onDelete={() => {}} />
+                            <PersonnelPage />
                         </PrivateRoute>
                     }
                 />
