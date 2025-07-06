@@ -24,11 +24,13 @@ export default function TrainingPage() {
                     Authorization: `Bearer ${token}`,
                 },
             });
+
             const result = await response.json();
             const formatted = result.map((p: any) => ({
                 id: p._id,
                 name: `${p.firstName} ${p.lastName}`,
             }));
+
             setPersonnel(formatted);
         } catch (error) {
             console.error("Error fetching personnel:", error);
@@ -48,13 +50,18 @@ export default function TrainingPage() {
             });
 
             const result = await response.json();
+
             const formatted = result.map((t: any) => ({
                 id: t._id,
                 description: t.description,
                 location: t.location,
                 from: t.from_date?.slice(0, 10),
                 to: t.to_date?.slice(0, 10),
-                personnel: t.personnel?.map((p: any) => p._id) || [],
+                personnel:
+                    t.personnel?.map((p: any) => ({
+                        id: p._id,
+                        name: `${p.firstName} ${p.lastName}`,
+                    })) || [],
             }));
 
             setData(formatted);
@@ -79,7 +86,9 @@ export default function TrainingPage() {
                 location: training.location,
                 from_date: training.from,
                 to_date: training.to,
-                personnel: training.personnel,
+                personnel: (training.personnel ?? []).map((p: any) =>
+                    typeof p === "string" ? p : p.id
+                ),
             };
 
             const response = await fetch(
@@ -98,7 +107,7 @@ export default function TrainingPage() {
 
             if (!response.ok) throw new Error("Failed to save training");
 
-            await fetchTrainings(); // 🔄 Επαναφόρτωση
+            await fetchTrainings();
             setEditing(null);
         } catch (error) {
             console.error("Error saving training:", error);
@@ -120,7 +129,9 @@ export default function TrainingPage() {
                     },
                 }
             );
+
             if (!response.ok) throw new Error("Failed to delete training");
+
             await fetchTrainings();
         } catch (error) {
             console.error("Error deleting training:", error);
@@ -145,7 +156,14 @@ export default function TrainingPage() {
                     acc[p.id] = p.name;
                     return acc;
                 }, {} as Record<string, string>)}
-                onEdit={setEditing}
+                onEdit={(training) =>
+                    setEditing({
+                        ...training,
+                        personnel: (training.personnel ?? []).map((p: any) =>
+                            typeof p === "string" ? p : p.id
+                        ),
+                    })
+                }
                 onDelete={handleDelete}
             />
         </div>

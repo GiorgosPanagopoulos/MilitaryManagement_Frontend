@@ -15,25 +15,37 @@ const TrainingList = ({ trainings = [], personnelMap, onEdit, onDelete }: Props)
             <table className="w-full table-auto border">
                 <thead className="bg-gray-100">
                 <tr>
-                    <th>Περιγραφή</th>
-                    <th>Τοποθεσία</th>
-                    <th>Διάρκεια</th>
-                    <th>Προσωπικό</th>
-                    <th>Ενέργειες</th>
+                    <th className="px-4 py-2">Περιγραφή</th>
+                    <th className="px-4 py-2">Τοποθεσία</th>
+                    <th className="px-4 py-2">Διάρκεια</th>
+                    <th className="px-4 py-2">Προσωπικό</th>
+                    <th className="px-4 py-2">Ενέργειες</th>
                 </tr>
                 </thead>
                 <tbody>
                 {trainings.map((t) => (
                     <tr key={t.id} className="text-center border-t">
-                        <td>{t.description}</td>
-                        <td>{t.location}</td>
-                        <td>
+                        <td className="px-4 py-2">{t.description}</td>
+                        <td className="px-4 py-2">{t.location}</td>
+                        <td className="px-4 py-2">
                             {t.from} έως {t.to}
                         </td>
-                        <td>{(t.personnel || []).map(pid => personnelMap[pid] || pid).join(", ")}</td>
-                        <td>
-                            <button onClick={() => onEdit(t)} className="mr-2 text-blue-500">Edit</button>
-                            <button onClick={() => onDelete(t.id)} className="text-red-500">Delete</button>
+                        <td className="px-4 py-2">
+                            {(t.personnel || [])
+                                .map((p: any) =>
+                                    typeof p === "string"
+                                        ? personnelMap[p] || "—"
+                                        : personnelMap[p.id] || "—"
+                                )
+                                .join(", ")}
+                        </td>
+                        <td className="px-4 py-2">
+                            <button onClick={() => onEdit(t)} className="mr-2 text-blue-500">
+                                Edit
+                            </button>
+                            <button onClick={() => onDelete(t.id)} className="text-red-500">
+                                Delete
+                            </button>
                         </td>
                     </tr>
                 ))}
