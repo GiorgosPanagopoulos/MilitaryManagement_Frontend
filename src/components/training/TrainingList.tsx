@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useMemo } from "react";
 import { Training } from "../../types/Training";
 
 type Props = {
@@ -8,46 +8,137 @@ type Props = {
     onDelete: (id: string) => void;
 };
 
-const TrainingList = ({ trainings = [], personnelMap, onEdit, onDelete }: Props) => {
+const TrainingList = ({
+                          trainings = [],
+                          personnelMap,
+                          onEdit,
+                          onDelete,
+                      }: Props) => {
+    const [expandedRows, setExpandedRows] = useState<string[]>([]);
+    const [searchTerm, setSearchTerm] = useState("");
+
+    const toggleDetails = (id: string) => {
+        setExpandedRows((prev) =>
+            prev.includes(id)
+                ? prev.filter((rowId) => rowId !== id)
+                : [...prev, id]
+        );
+    };
+
+    const filteredTrainings = useMemo(() => {
+        const lower = searchTerm.toLowerCase();
+        return trainings.filter((t) => {
+            const descMatch = t.description?.toLowerCase().includes(lower);
+            const locMatch = t.location?.toLowerCase().includes(lower);
+            const personMatch = (t.personnel || [])
+                .map((p: any) => {
+                    if (typeof p === "object" && p.firstName && p.lastName) {
+                        return `${p.firstName} ${p.lastName}`;
+                    }
+                    if (typeof p === "string") {
+                        return personnelMap[p] || "";
+                    }
+                    return "";
+                })
+                .some((name) => name.toLowerCase().includes(lower));
+
+            return descMatch || locMatch || personMatch;
+        });
+    }, [trainings, searchTerm, personnelMap]);
+
     return (
-        <div className="p-4">
-            <h2 className="text-xl font-bold mb-2">Εκπαιδεύσεις</h2>
-            <table className="w-full table-auto border">
+        <div className="p-4 overflow-x-auto">
+            <h2 className="text-xl font-bold mb-4">Εκπαιδεύσεις</h2>
+
+            {/* 🔍 Αναζήτηση */}
+            <input
+                type="text"
+                placeholder="Αναζήτηση με λέξη-κλειδί..."
+                className="mb-4 p-2 border rounded w-full max-w-md"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+            />
+
+            <table className="min-w-full table-auto border border-gray-300 text-sm">
                 <thead className="bg-gray-100">
                 <tr>
-                    <th className="px-4 py-2">Περιγραφή</th>
-                    <th className="px-4 py-2">Τοποθεσία</th>
-                    <th className="px-4 py-2">Διάρκεια</th>
-                    <th className="px-4 py-2">Προσωπικό</th>
-                    <th className="px-4 py-2">Ενέργειες</th>
+                    <th className="px-3 py-2 text-left">Περιγραφή</th>
+                    <th className="px-3 py-2 text-left">Τοποθεσία</th>
+                    <th className="px-3 py-2 text-left">Διάρκεια</th>
+                    <th className="px-3 py-2 text-left">Ενέργειες</th>
                 </tr>
                 </thead>
                 <tbody>
-                {trainings.map((t) => (
-                    <tr key={t.id} className="text-center border-t">
-                        <td className="px-4 py-2">{t.description}</td>
-                        <td className="px-4 py-2">{t.location}</td>
-                        <td className="px-4 py-2">
-                            {t.from} έως {t.to}
-                        </td>
-                        <td className="px-4 py-2">
-                            {(t.personnel || [])
-                                .map((p: any) =>
-                                    typeof p === "string"
-                                        ? personnelMap[p] || "—"
-                                        : personnelMap[p.id] || "—"
-                                )
-                                .join(", ")}
-                        </td>
-                        <td className="px-4 py-2">
-                            <button onClick={() => onEdit(t)} className="mr-2 text-blue-500">
-                                Edit
-                            </button>
-                            <button onClick={() => onDelete(t.id)} className="text-red-500">
-                                Delete
-                            </button>
-                        </td>
-                    </tr>
+                {filteredTrainings.map((t) => (
+                    <React.Fragment key={t.id}>
+                        <tr className="border-t">
+                            <td className="px-3 py-2 font-medium">{t.description}</td>
+                            <td className="px-3 py-2">{t.location}</td>
+                            <td className="px-3 py-2">
+                                {t.from} έως {t.to}
+                            </td>
+                            <td className="px-3 py-2 whitespace-nowrap">
+                                <button
+                                    onClick={() => toggleDetails(t.id)}
+                                    className="mr-2 text-green-600 hover:underline"
+                                >
+                                    {expandedRows.includes(t.id) ? "Απόκρυψη" : "Λεπτομέρειες"}
+                                </button>
+                                <button
+                                    onClick={() => onEdit(t)}
+                                    className="mr-2 text-blue-500 hover:underline"
+                                >
+                                    Edit
+                                </button>
+                                <button
+                                    onClick={() => onDelete(t.id)}
+                                    className="text-red-500 hover:underline"
+                                >
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+
+                        {expandedRows.includes(t.id) && (
+                            <tr className="border-b bg-gray-50">
+                                <td colSpan={4} className="px-4 py-3">
+                                    <p className="font-semibold mb-1">Προσωπικό:</p>
+                                    <ul className="list-disc pl-5 space-y-1">
+                                        {(t.personnel || []).map((p: any, idx: number) => {
+                                            if (
+                                                typeof p === "object" &&
+                                                p !== null &&
+                                                "firstName" in p &&
+                                                "lastName" in p
+                                            ) {
+                                                return (
+                                                    <li key={idx}>
+                                                        {p.rank ? `${p.rank} ` : ""}
+                                                        {p.firstName} {p.lastName}
+                                                    </li>
+                                                );
+                                            }
+                                            if (typeof p === "string") {
+                                                return
+                                                    <li key={idx}>{personnelMap[p] || "—"}</li>;
+                                            }
+                                            return <li key={idx}>—</li>;
+                                        })}
+                                    </ul>
+
+                                    {/* 🎯 Εμφάνιση βαθμολογίας */}
+                                    {t.success_rate !== undefined && (
+                                        <p className="mt-3 font-semibold">
+                                            Βαθμολογία:{" "}
+                                            <span className="font-normal">
+                          {t.success_rate}%
+                        </span>
+                                        </p>
+                                    )}
+                                </td>
+                            </tr>
+                        )}
+                    </React.Fragment>
                 ))}
                 </tbody>
             </table>

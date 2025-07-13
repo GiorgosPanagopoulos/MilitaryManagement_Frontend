@@ -57,11 +57,19 @@ export default function TrainingPage() {
                 location: t.location,
                 from: t.from_date?.slice(0, 10),
                 to: t.to_date?.slice(0, 10),
+                success_rate: t.success_rate ?? undefined,
                 personnel:
-                    t.personnel?.map((p: any) => ({
-                        id: p._id,
-                        name: `${p.firstName} ${p.lastName}`,
-                    })) || [],
+                    t.personnel?.map((p: any) => {
+                        if (typeof p === "object" && p !== null && "_id" in p) {
+                            return {
+                                _id: p._id,
+                                firstName: p.firstName,
+                                lastName: p.lastName,
+                                rank: p.rank,
+                            };
+                        }
+                        return p; // string id fallback
+                    }) ?? [],
             }));
 
             setData(formatted);
@@ -86,8 +94,11 @@ export default function TrainingPage() {
                 location: training.location,
                 from_date: training.from,
                 to_date: training.to,
+                success_rate: training.success_rate ?? undefined,
                 personnel: (training.personnel ?? []).map((p: any) =>
-                    typeof p === "string" ? p : p.id
+                    typeof p === "string"
+                        ? p
+                        : p._id || p.id // καλύπτει κάθε περίπτωση
                 ),
             };
 
@@ -160,7 +171,9 @@ export default function TrainingPage() {
                     setEditing({
                         ...training,
                         personnel: (training.personnel ?? []).map((p: any) =>
-                            typeof p === "string" ? p : p.id
+                            typeof p === "string"
+                                ? p
+                                : p._id || p.id // ίδια με αποθήκευση
                         ),
                     })
                 }
