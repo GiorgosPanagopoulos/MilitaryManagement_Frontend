@@ -1,43 +1,57 @@
 import { Link } from "react-router-dom";
-import { FaUser, FaChalkboardTeacher, FaChartPie, FaCalendarAlt } from "react-icons/fa";
+import {
+  FaUser,
+  FaChalkboardTeacher,
+  FaChartPie,
+  FaCalendarAlt,
+} from "react-icons/fa";
 
 export default function DashboardPage() {
+  const cards = [
+    {
+      to: "/personnel",
+      icon: <FaUser className="text-3xl" />,
+      title: "Προσωπικό",
+      bg: "bg-blue-600 hover:bg-blue-700",
+    },
+    {
+      to: "/training",
+      icon: <FaChalkboardTeacher className="text-3xl" />,
+      title: "Εκπαίδευση",
+      bg: "bg-green-600 hover:bg-green-700",
+    },
+    {
+      to: "/statistics",
+      icon: <FaChartPie className="text-3xl" />,
+      title: "Στατιστικά",
+      bg: "bg-purple-600 hover:bg-purple-700",
+    },
+    {
+      to: "/calendar",
+      icon: <FaCalendarAlt className="text-3xl" />,
+      title: "Ημερολόγιο",
+      bg: "bg-yellow-600 hover:bg-yellow-700 text-gray-900",
+    },
+  ];
+
   return (
-      <div className="p-8">
-        <h1 className="text-2xl font-bold mb-6">Καλώς ήρθατε στο Military Management</h1>
+      <div className="p-6 max-w-6xl mx-auto">
+        <h1 className="text-3xl font-bold text-center mb-10">
+          Καλώς ήρθατε στο Military Management
+        </h1>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <Link
-              to="/personnel"
-              className="flex items-center space-x-3 p-6 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition"
-          >
-            <FaUser className="text-xl" />
-            <span>Προσωπικό</span>
-          </Link>
-
-          <Link
-              to="/training"
-              className="flex items-center space-x-3 p-6 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition"
-          >
-            <FaChalkboardTeacher className="text-xl" />
-            <span>Εκπαίδευση</span>
-          </Link>
-
-          <Link
-              to="/statistics"
-              className="flex items-center space-x-3 p-6 bg-purple-600 text-white rounded-lg shadow hover:bg-purple-700 transition"
-          >
-            <FaChartPie className="text-xl" />
-            <span>Στατιστικά</span>
-          </Link>
-
-          <Link
-              to="/calendar"
-              className="flex items-center space-x-3 p-6 bg-yellow-600 text-white rounded-lg shadow hover:bg-yellow-700 transition"
-          >
-            <FaCalendarAlt className="text-xl" />
-            <span>Ημερολόγιο</span>
-          </Link>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          {cards.map((card, index) => (
+              <Link
+                  key={index}
+                  to={card.to}
+                  className={`flex flex-col items-center justify-center space-y-3 p-6 ${card.bg} text-white rounded-2xl shadow-lg transition-all transform hover:scale-105`}
+                  title={`Μετάβαση στη σελίδα ${card.title}`}
+              >
+                {card.icon}
+                <span className="text-lg font-semibold">{card.title}</span>
+              </Link>
+          ))}
         </div>
       </div>
   );

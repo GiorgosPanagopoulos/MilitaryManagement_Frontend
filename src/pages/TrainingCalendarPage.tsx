@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
@@ -41,16 +40,21 @@ export default function TrainingCalendarPage() {
   }, []);
 
   return (
-      <div className="p-6">
-        <h2 className="text-2xl font-bold mb-4">Ημερολόγιο Εκπαιδεύσεων</h2>
-        <div className="bg-white p-4 rounded shadow">
-          <Calendar
-              localizer={localizer}
-              events={events}
-              startAccessor="start"
-              endAccessor="end"
-              style={{ height: 500 }}
-          />
+      <div className="px-4 py-6 md:px-8">
+        <h2 className="text-2xl font-bold mb-4 text-center sm:text-left">
+          Ημερολόγιο Εκπαιδεύσεων
+        </h2>
+
+        <div className="bg-white rounded shadow p-2 sm:p-4">
+          <div className="w-full h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden">
+            <Calendar
+                localizer={localizer}
+                events={events}
+                startAccessor="start"
+                endAccessor="end"
+                style={{ height: "100%" }}
+            />
+          </div>
         </div>
       </div>
   );

@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useForm } from "react-hook-form";
 import axios from "../../axios";
@@ -8,7 +9,10 @@ type PersonnelFormProps = {
     initialData?: Personnel;
 };
 
-export default function PersonnelForm({ onSubmit, initialData }: PersonnelFormProps) {
+export default function PersonnelForm({
+                                          onSubmit,
+                                          initialData,
+                                      }: PersonnelFormProps) {
     const { register, handleSubmit, reset } = useForm<Personnel>({
         defaultValues: initialData || {},
     });
@@ -17,7 +21,7 @@ export default function PersonnelForm({ onSubmit, initialData }: PersonnelFormPr
 
     React.useEffect(() => {
         reset(initialData || {});
-    }, [initialData]);
+    }, [initialData, reset]);
 
     const handleFileUpload = async (id: string) => {
         if (file) {
@@ -38,17 +42,62 @@ export default function PersonnelForm({ onSubmit, initialData }: PersonnelFormPr
     };
 
     return (
-        <form onSubmit={handleSubmit(onFinalSubmit)} className="space-y-4 p-4 border rounded">
-            <input {...register("firstName")} placeholder="Όνομα" className="input" />
-            <input {...register("lastName")} placeholder="Επώνυμο" className="input" />
-            <input {...register("rank")} placeholder="Βαθμός" className="input" />
-            <input {...register("serviceNumber")} placeholder="Αρ. Μητρώου" className="input" />
-            <input {...register("phone")} placeholder="Τηλέφωνο" className="input" />
-            <input {...register("email")} placeholder="Email" className="input" />
-            <input {...register("unit")} placeholder="Μονάδα" className="input" />
-            <label>Αρχείο Πτυχίου</label>
-            <input type="file" onChange={(e) => setFile(e.target.files?.[0] || null)} />
-            <button type="submit" className="bg-blue-600 text-white px-4 py-1 rounded">Αποθήκευση</button>
+        <form
+            onSubmit={handleSubmit(onFinalSubmit)}
+            className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 border rounded shadow bg-white"
+        >
+            <input
+                {...register("firstName")}
+                placeholder="Όνομα"
+                className="input w-full border p-2 rounded"
+            />
+            <input
+                {...register("lastName")}
+                placeholder="Επώνυμο"
+                className="input w-full border p-2 rounded"
+            />
+            <input
+                {...register("rank")}
+                placeholder="Βαθμός"
+                className="input w-full border p-2 rounded"
+            />
+            <input
+                {...register("serviceNumber")}
+                placeholder="Αρ. Μητρώου"
+                className="input w-full border p-2 rounded"
+            />
+            <input
+                {...register("phone")}
+                placeholder="Τηλέφωνο"
+                className="input w-full border p-2 rounded"
+            />
+            <input
+                {...register("email")}
+                type="email"
+                placeholder="Email"
+                className="input w-full border p-2 rounded"
+            />
+            <input
+                {...register("unit")}
+                placeholder="Μονάδα"
+                className="input w-full border p-2 rounded"
+            />
+            <div className="flex flex-col sm:col-span-2">
+                <label className="mb-1 font-medium">Αρχείο Πτυχίου</label>
+                <input
+                    type="file"
+                    onChange={(e) => setFile(e.target.files?.[0] || null)}
+                    className="w-full"
+                />
+            </div>
+            <div className="sm:col-span-2 flex justify-end">
+                <button
+                    type="submit"
+                    className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
+                >
+                    Αποθήκευση
+                </button>
+            </div>
         </form>
     );
 }

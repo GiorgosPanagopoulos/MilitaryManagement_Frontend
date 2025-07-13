@@ -12,7 +12,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import axios from "../axios"; // Βεβαιώσου ότι είναι σωστή η διαδρομή
+import axios from "../axios";
 
 interface PieData {
   name: string;
@@ -53,51 +53,60 @@ const StatisticsPage: React.FC = () => {
   const COLORS = ["#8884d8", "#82ca9d", "#ffc658", "#ff8042", "#8dd1e1", "#a4de6c"];
 
   return (
-      <div className="p-6">
-        <h2 className="text-2xl font-bold mb-4">Στατιστικά Προσωπικού & Εκπαίδευσης</h2>
+      <div className="p-4 md:p-6">
+        <h2 className="text-2xl font-bold mb-6 text-center">📊 Στατιστικά Προσωπικού & Εκπαίδευσης</h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-white rounded p-4 shadow">
-            <h3 className="font-semibold mb-2">Προσωπικό ανά Μονάδα</h3>
-            <ResponsiveContainer width="100%" height={250}>
-              <PieChart>
-                <Pie data={personnelByUnit} dataKey="value" nameKey="name" outerRadius={80} label>
-                  {personnelByUnit.map((_, index) => (
-                      <Cell key={index} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <Tooltip />
-              </PieChart>
-            </ResponsiveContainer>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Πίτα: Προσωπικό ανά Μονάδα */}
+          <div className="bg-white rounded-xl shadow p-4">
+            <h3 className="text-lg font-semibold mb-3 text-center">Προσωπικό ανά Μονάδα</h3>
+            <div className="w-full h-64 sm:h-80">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie data={personnelByUnit} dataKey="value" nameKey="name" outerRadius="80%" label>
+                    {personnelByUnit.map((_, index) => (
+                        <Cell key={index} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
           </div>
 
-          <div className="bg-white rounded p-4 shadow">
-            <h3 className="font-semibold mb-2">Προσωπικό ανά Βαθμό</h3>
-            <ResponsiveContainer width="100%" height={250}>
-              <PieChart>
-                <Pie data={personnelByRank} dataKey="value" nameKey="name" outerRadius={80} label>
-                  {personnelByRank.map((_, index) => (
-                      <Cell key={index} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <Tooltip />
-              </PieChart>
-            </ResponsiveContainer>
+          {/* Πίτα: Προσωπικό ανά Βαθμό */}
+          <div className="bg-white rounded-xl shadow p-4">
+            <h3 className="text-lg font-semibold mb-3 text-center">Προσωπικό ανά Βαθμό</h3>
+            <div className="w-full h-64 sm:h-80">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie data={personnelByRank} dataKey="value" nameKey="name" outerRadius="80%" label>
+                    {personnelByRank.map((_, index) => (
+                        <Cell key={index} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
           </div>
 
-          <div className="bg-white rounded p-4 shadow col-span-1 md:col-span-2">
-            <h3 className="font-semibold mb-2">Συμμετοχές & Βαθμολογίες Εκπαίδευσης</h3>
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={trainingsStats}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="training" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="participants" fill="#8884d8" name="Συμμετοχές" />
-                <Bar dataKey="averageScore" fill="#82ca9d" name="Μ.Ο. Βαθμολογίας" />
-              </BarChart>
-            </ResponsiveContainer>
+          {/* Ράβδοι: Εκπαίδευση */}
+          <div className="col-span-1 lg:col-span-2 bg-white rounded-xl shadow p-4">
+            <h3 className="text-lg font-semibold mb-3 text-center">Συμμετοχές & Μ.Ο. Βαθμολογίας Εκπαίδευσης</h3>
+            <div className="w-full h-[300px] sm:h-[400px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={trainingsStats} margin={{ top: 10, right: 20, left: 10, bottom: 60 }}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="training" angle={-30} textAnchor="end" interval={0} height={70} />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="participants" fill="#8884d8" name="Συμμετοχές" />
+                  <Bar dataKey="averageScore" fill="#82ca9d" name="Μ.Ο. Βαθμολογίας" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
           </div>
         </div>
       </div>

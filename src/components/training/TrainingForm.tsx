@@ -40,61 +40,73 @@ export default function TrainingForm({
     }, [initialData, reset]);
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 p-4 border rounded">
-            <input
-                {...register("description")}
-                placeholder="Περιγραφή Εκπαίδευσης"
-                className="input w-full"
-            />
+        <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="space-y-4 p-4 sm:p-6 border border-gray-300 rounded-lg shadow-sm bg-white"
+        >
+            <div>
+                <input
+                    {...register("description")}
+                    placeholder="Περιγραφή Εκπαίδευσης"
+                    className="w-full border border-gray-300 rounded px-3 py-2 text-sm sm:text-base"
+                />
+            </div>
 
-            <input
-                {...register("location")}
-                placeholder="Τοποθεσία"
-                className="input w-full"
-            />
+            <div>
+                <input
+                    {...register("location")}
+                    placeholder="Τοποθεσία"
+                    className="w-full border border-gray-300 rounded px-3 py-2 text-sm sm:text-base"
+                />
+            </div>
 
-            <input
-                {...register("from")}
-                type="date"
-                placeholder="Από (π.χ. 2025-01-01)"
-                className="input w-full"
-            />
+            <div className="flex flex-col sm:flex-row gap-4">
+                <input
+                    {...register("from")}
+                    type="date"
+                    className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
+                />
+                <input
+                    {...register("to")}
+                    type="date"
+                    className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
+                />
+            </div>
 
-            <input
-                {...register("to")}
-                type="date"
-                placeholder="Έως (π.χ. 2025-02-01)"
-                className="input w-full"
-            />
+            <div>
+                <input
+                    {...register("success_rate", { valueAsNumber: true })}
+                    type="number"
+                    placeholder="Βαθμολογία (0-100)"
+                    min={0}
+                    max={100}
+                    className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
+                />
+            </div>
 
-            <input
-                {...register("success_rate", { valueAsNumber: true })}
-                type="number"
-                placeholder="Βαθμολογία (0-100)"
-                min={0}
-                max={100}
-                className="input w-full"
-            />
+            <div>
+                <label className="block font-semibold mb-1">Προσωπικό που έχει διέλθει:</label>
+                <select
+                    {...register("personnel")}
+                    multiple
+                    className="w-full border border-gray-300 rounded px-3 py-2 text-sm h-32"
+                >
+                    {personnelList.map((p) => (
+                        <option key={p.id} value={p.id}>
+                            {p.name}
+                        </option>
+                    ))}
+                </select>
+            </div>
 
-            <label className="block font-semibold">Προσωπικό που έχει διέλθει:</label>
-            <select
-                {...register("personnel")}
-                multiple
-                className="input w-full"
-            >
-                {personnelList.map((p) => (
-                    <option key={p.id} value={p.id}>
-                        {p.name}
-                    </option>
-                ))}
-            </select>
-
-            <button
-                type="submit"
-                className="bg-green-600 text-white px-4 py-1 rounded hover:bg-green-700"
-            >
-                Αποθήκευση
-            </button>
+            <div className="text-right">
+                <button
+                    type="submit"
+                    className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+                >
+                    Αποθήκευση
+                </button>
+            </div>
         </form>
     );
 }
