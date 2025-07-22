@@ -11,6 +11,7 @@ import StatisticsPage from "./pages/StatisticsPage";
 import TrainingCalendarPage from "./pages/TrainingCalendarPage";
 import Logout from "./pages/Logout";
 import Login from "./pages/Login";
+import AdminPage from "./pages/AdminPage"; // ✅ Προσθήκη AdminPage
 
 function App() {
     return (
@@ -51,6 +52,14 @@ function App() {
                     element={
                         <PrivateRoute>
                             <TrainingCalendarPage />
+                        </PrivateRoute>
+                    }
+                />
+                <Route
+                    path="/admin"
+                    element={
+                        <PrivateRoute>
+                            <AdminPage />
                         </PrivateRoute>
                     }
                 />
