@@ -48,20 +48,19 @@ const TrainingList = ({
 
     return (
         <div className="p-4 sm:p-6 md:p-8 overflow-x-auto">
-            <h2 className="text-xl sm:text-2xl font-bold mb-4">Εκπαιδεύσεις</h2>
+            <h2 className="text-xl sm:text-2xl font-bold mb-4 dark:text-white">Εκπαιδεύσεις</h2>
 
-            {/* 🔍 Αναζήτηση */}
             <input
                 type="text"
                 placeholder="Αναζήτηση με λέξη-κλειδί..."
-                className="mb-4 p-2 border rounded w-full max-w-md text-sm sm:text-base"
+                className="mb-4 p-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white rounded w-full max-w-md text-sm sm:text-base"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
 
             <div className="w-full overflow-x-auto">
-                <table className="min-w-full table-auto border border-gray-300 text-sm sm:text-base">
-                    <thead className="bg-gray-100">
+                <table className="min-w-full table-auto border border-gray-300 dark:border-gray-600 text-sm sm:text-base">
+                    <thead className="bg-gray-100 dark:bg-gray-700 dark:text-white">
                     <tr>
                         <th className="px-3 py-2 text-left">Περιγραφή</th>
                         <th className="px-3 py-2 text-left">Τοποθεσία</th>
@@ -69,49 +68,42 @@ const TrainingList = ({
                         <th className="px-3 py-2 text-left">Ενέργειες</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="bg-white dark:bg-gray-800 dark:text-white">
                     {filteredTrainings.map((t) => (
                         <React.Fragment key={t.id}>
-                            <tr className="border-t">
+                            <tr className="border-t dark:border-gray-700">
                                 <td className="px-3 py-2 font-medium">{t.description}</td>
                                 <td className="px-3 py-2">{t.location}</td>
-                                <td className="px-3 py-2">
-                                    {t.from} έως {t.to}
-                                </td>
+                                <td className="px-3 py-2">{t.from} έως {t.to}</td>
                                 <td className="px-3 py-2 whitespace-nowrap">
                                     <button
                                         onClick={() => toggleDetails(t.id)}
-                                        className="mr-2 text-green-600 hover:underline"
+                                        className="mr-2 text-green-600 dark:text-green-400 hover:underline"
                                     >
                                         {expandedRows.includes(t.id) ? "Απόκρυψη" : "Λεπτομέρειες"}
                                     </button>
                                     <button
                                         onClick={() => onEdit(t)}
-                                        className="mr-2 text-blue-500 hover:underline"
+                                        className="mr-2 text-blue-600 dark:text-blue-400 hover:underline"
                                     >
-                                        Edit
+                                        Επεξεργασία
                                     </button>
                                     <button
                                         onClick={() => onDelete(t.id)}
-                                        className="text-red-500 hover:underline"
+                                        className="text-red-600 dark:text-red-400 hover:underline"
                                     >
-                                        Delete
+                                        Διαγραφή
                                     </button>
                                 </td>
                             </tr>
 
                             {expandedRows.includes(t.id) && (
-                                <tr className="border-b bg-gray-50">
+                                <tr className="border-b bg-gray-50 dark:bg-gray-900 dark:border-gray-700">
                                     <td colSpan={4} className="px-4 py-3">
                                         <p className="font-semibold mb-1 text-sm sm:text-base">Προσωπικό:</p>
                                         <ul className="list-disc pl-5 space-y-1 text-sm">
                                             {(t.personnel || []).map((p: any, idx: number) => {
-                                                if (
-                                                    typeof p === "object" &&
-                                                    p !== null &&
-                                                    "firstName" in p &&
-                                                    "lastName" in p
-                                                ) {
+                                                if (typeof p === "object" && p.firstName && p.lastName) {
                                                     return (
                                                         <li key={idx}>
                                                             {p.rank ? `${p.rank} ` : ""}
@@ -120,9 +112,7 @@ const TrainingList = ({
                                                     );
                                                 }
                                                 if (typeof p === "string") {
-                                                    return (
-                                                        <li key={idx}>{personnelMap[p] || "—"}</li>
-                                                    );
+                                                    return <li key={idx}>{personnelMap[p] || "—"}</li>;
                                                 }
                                                 return <li key={idx}>—</li>;
                                             })}

@@ -5,6 +5,7 @@ import {
   FaChartPie,
   FaCalendarAlt,
 } from "react-icons/fa";
+import logo from "../assets/logo.png";
 
 export default function DashboardPage() {
   const cards = [
@@ -36,10 +37,26 @@ export default function DashboardPage() {
 
   return (
       <div className="p-6 max-w-6xl mx-auto">
-        <h1 className="text-3xl font-bold text-center mb-10">
-          Καλώς ήρθατε στο Military Management
-        </h1>
+        {/* ✅ Responsive Logo και Τίτλος */}
+        <div className="flex flex-col items-center mb-6">
+          <img
+              src={logo}
+              alt="MilMan Logo"
+              className="h-20 sm:h-24 md:h-28 lg:h-32 object-contain transition-opacity duration-500"
+          />
+          <h1 className="text-3xl font-bold text-center mt-4">
+            Καλώς ήρθατε στο Military Management
+          </h1>
+        </div>
 
+        {/* 🟣 Κινούμενο Banner */}
+        <div className="overflow-hidden rounded-lg bg-indigo-600 text-white shadow mb-8 h-12 flex items-center">
+          <p className="whitespace-nowrap animate-marquee px-4 font-medium">
+            🎯 Παρακολούθησε εκπαιδεύσεις, πρόσθεσε νέο προσωπικό και δες αναφορές - όλα σε μία εφαρμογή!
+          </p>
+        </div>
+
+        {/* 🔘 Κουμπιά Dashboard */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {cards.map((card, index) => (
               <Link

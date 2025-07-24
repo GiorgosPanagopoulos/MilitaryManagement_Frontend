@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useForm } from "react-hook-form";
 import axios from "../../axios";
@@ -44,52 +43,54 @@ export default function PersonnelForm({
     return (
         <form
             onSubmit={handleSubmit(onFinalSubmit)}
-            className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 border rounded shadow bg-white"
+            className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 border rounded shadow bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
         >
             <input
                 {...register("firstName")}
                 placeholder="Όνομα"
-                className="input w-full border p-2 rounded"
+                className="w-full border border-gray-300 dark:border-gray-600 p-2 rounded bg-white dark:bg-gray-700 text-black dark:text-white"
             />
             <input
                 {...register("lastName")}
                 placeholder="Επώνυμο"
-                className="input w-full border p-2 rounded"
+                className="w-full border border-gray-300 dark:border-gray-600 p-2 rounded bg-white dark:bg-gray-700 text-black dark:text-white"
             />
             <input
                 {...register("rank")}
                 placeholder="Βαθμός"
-                className="input w-full border p-2 rounded"
+                className="w-full border border-gray-300 dark:border-gray-600 p-2 rounded bg-white dark:bg-gray-700 text-black dark:text-white"
             />
             <input
                 {...register("serviceNumber")}
                 placeholder="Αρ. Μητρώου"
-                className="input w-full border p-2 rounded"
+                className="w-full border border-gray-300 dark:border-gray-600 p-2 rounded bg-white dark:bg-gray-700 text-black dark:text-white"
             />
             <input
                 {...register("phone")}
                 placeholder="Τηλέφωνο"
-                className="input w-full border p-2 rounded"
+                className="w-full border border-gray-300 dark:border-gray-600 p-2 rounded bg-white dark:bg-gray-700 text-black dark:text-white"
             />
             <input
                 {...register("email")}
                 type="email"
                 placeholder="Email"
-                className="input w-full border p-2 rounded"
+                className="w-full border border-gray-300 dark:border-gray-600 p-2 rounded bg-white dark:bg-gray-700 text-black dark:text-white"
             />
             <input
                 {...register("unit")}
                 placeholder="Μονάδα"
-                className="input w-full border p-2 rounded"
+                className="w-full border border-gray-300 dark:border-gray-600 p-2 rounded bg-white dark:bg-gray-700 text-black dark:text-white"
             />
+
             <div className="flex flex-col sm:col-span-2">
-                <label className="mb-1 font-medium">Αρχείο Πτυχίου</label>
+                <label className="mb-1 font-medium text-gray-800 dark:text-gray-200">Αρχείο Πτυχίου</label>
                 <input
                     type="file"
                     onChange={(e) => setFile(e.target.files?.[0] || null)}
-                    className="w-full"
+                    className="w-full text-gray-800 dark:text-gray-100"
                 />
             </div>
+
             <div className="sm:col-span-2 flex justify-end">
                 <button
                     type="submit"

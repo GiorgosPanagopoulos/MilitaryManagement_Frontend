@@ -46,8 +46,8 @@ export default function PersonnelPage() {
     };
 
     return (
-        <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
-            <h1 className="text-2xl font-bold mb-6 text-center sm:text-left">
+        <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 dark:bg-gray-900">
+            <h1 className="text-2xl font-bold mb-6 text-center sm:text-left text-gray-800 dark:text-gray-100">
                 Διαχείριση Προσωπικού
             </h1>
 
@@ -58,7 +58,7 @@ export default function PersonnelPage() {
                 />
             </div>
 
-            <hr className="my-6 border-gray-300" />
+            <hr className="my-6 border-gray-300 dark:border-gray-600" />
 
             <div className="overflow-x-auto">
                 <PersonnelList

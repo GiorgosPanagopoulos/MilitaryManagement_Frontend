@@ -13,16 +13,13 @@ export default function TrainingPage() {
     const [editing, setEditing] = useState<Training | null>(null);
     const [personnel, setPersonnel] = useState<Personnel[]>([]);
 
-    // 🔄 Ανάκτηση προσωπικού
     const fetchPersonnel = async () => {
         try {
             const token = localStorage.getItem("token");
             if (!token) throw new Error("Missing token");
 
             const response = await fetch("http://localhost:5001/api/personnel", {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
+                headers: { Authorization: `Bearer ${token}` },
             });
 
             const result = await response.json();
@@ -37,16 +34,13 @@ export default function TrainingPage() {
         }
     };
 
-    // 🔄 Ανάκτηση εκπαιδεύσεων
     const fetchTrainings = async () => {
         try {
             const token = localStorage.getItem("token");
             if (!token) throw new Error("Missing token");
 
             const response = await fetch("http://localhost:5001/api/training", {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
+                headers: { Authorization: `Bearer ${token}` },
             });
 
             const result = await response.json();
@@ -68,7 +62,7 @@ export default function TrainingPage() {
                                 rank: p.rank,
                             };
                         }
-                        return p; // string id fallback
+                        return p;
                     }) ?? [],
             }));
 
@@ -83,7 +77,6 @@ export default function TrainingPage() {
         void fetchTrainings();
     }, []);
 
-    // ✅ Αποθήκευση ή ενημέρωση εκπαίδευσης
     const handleSave = async (training: Training) => {
         try {
             const token = localStorage.getItem("token");
@@ -96,9 +89,7 @@ export default function TrainingPage() {
                 to_date: training.to,
                 success_rate: training.success_rate ?? undefined,
                 personnel: (training.personnel ?? []).map((p: any) =>
-                    typeof p === "string"
-                        ? p
-                        : p._id || p.id // καλύπτει κάθε περίπτωση
+                    typeof p === "string" ? p : p._id || p.id
                 ),
             };
 
@@ -125,21 +116,15 @@ export default function TrainingPage() {
         }
     };
 
-    // 🗑️ Διαγραφή εκπαίδευσης
     const handleDelete = async (id: string) => {
         try {
             const token = localStorage.getItem("token");
             if (!token) throw new Error("Missing token");
 
-            const response = await fetch(
-                `http://localhost:5001/api/training/${id}`,
-                {
-                    method: "DELETE",
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
+            const response = await fetch(`http://localhost:5001/api/training/${id}`, {
+                method: "DELETE",
+                headers: { Authorization: `Bearer ${token}` },
+            });
 
             if (!response.ok) throw new Error("Failed to delete training");
 
@@ -150,35 +135,39 @@ export default function TrainingPage() {
     };
 
     return (
-        <div className="max-w-5xl mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-4">Εκπαίδευση</h1>
+        <div className="max-w-6xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
+            <h1 className="text-2xl font-bold mb-6 text-center sm:text-left text-gray-900 dark:text-gray-100">
+                Εκπαίδευση
+            </h1>
 
-            <TrainingForm
-                onSubmit={handleSave}
-                initialData={editing || undefined}
-                personnelList={personnel}
-            />
+            <div className="mb-8">
+                <TrainingForm
+                    onSubmit={handleSave}
+                    initialData={editing || undefined}
+                    personnelList={personnel}
+                />
+            </div>
 
-            <hr className="my-6" />
+            <hr className="my-6 border-gray-300 dark:border-gray-700" />
 
-            <TrainingList
-                trainings={data}
-                personnelMap={personnel.reduce((acc, p) => {
-                    acc[p.id] = p.name;
-                    return acc;
-                }, {} as Record<string, string>)}
-                onEdit={(training) =>
-                    setEditing({
-                        ...training,
-                        personnel: (training.personnel ?? []).map((p: any) =>
-                            typeof p === "string"
-                                ? p
-                                : p._id || p.id // ίδια με αποθήκευση
-                        ),
-                    })
-                }
-                onDelete={handleDelete}
-            />
+            <div className="overflow-x-auto">
+                <TrainingList
+                    trainings={data}
+                    personnelMap={personnel.reduce((acc, p) => {
+                        acc[p.id] = p.name;
+                        return acc;
+                    }, {} as Record<string, string>)}
+                    onEdit={(training) =>
+                        setEditing({
+                            ...training,
+                            personnel: (training.personnel ?? []).map((p: any) =>
+                                typeof p === "string" ? p : p._id || p.id
+                            ),
+                        })
+                    }
+                    onDelete={handleDelete}
+                />
+            </div>
         </div>
     );
 }

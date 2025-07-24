@@ -42,13 +42,13 @@ export default function TrainingForm({
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className="space-y-4 p-4 sm:p-6 border border-gray-300 rounded-lg shadow-sm bg-white"
+            className="space-y-4 p-4 sm:p-6 border rounded-lg shadow-sm bg-white dark:bg-gray-800 dark:border-gray-700"
         >
             <div>
                 <input
                     {...register("description")}
                     placeholder="Περιγραφή Εκπαίδευσης"
-                    className="w-full border border-gray-300 rounded px-3 py-2 text-sm sm:text-base"
+                    className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white rounded px-3 py-2 text-sm sm:text-base"
                 />
             </div>
 
@@ -56,7 +56,7 @@ export default function TrainingForm({
                 <input
                     {...register("location")}
                     placeholder="Τοποθεσία"
-                    className="w-full border border-gray-300 rounded px-3 py-2 text-sm sm:text-base"
+                    className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white rounded px-3 py-2 text-sm sm:text-base"
                 />
             </div>
 
@@ -64,12 +64,12 @@ export default function TrainingForm({
                 <input
                     {...register("from")}
                     type="date"
-                    className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
+                    className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white rounded px-3 py-2 text-sm"
                 />
                 <input
                     {...register("to")}
                     type="date"
-                    className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
+                    className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white rounded px-3 py-2 text-sm"
                 />
             </div>
 
@@ -80,16 +80,18 @@ export default function TrainingForm({
                     placeholder="Βαθμολογία (0-100)"
                     min={0}
                     max={100}
-                    className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
+                    className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white rounded px-3 py-2 text-sm"
                 />
             </div>
 
             <div>
-                <label className="block font-semibold mb-1">Προσωπικό που έχει διέλθει:</label>
+                <label className="block font-semibold mb-1 dark:text-gray-200">
+                    Προσωπικό που έχει διέλθει:
+                </label>
                 <select
                     {...register("personnel")}
                     multiple
-                    className="w-full border border-gray-300 rounded px-3 py-2 text-sm h-32"
+                    className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white rounded px-3 py-2 text-sm h-32"
                 >
                     {personnelList.map((p) => (
                         <option key={p.id} value={p.id}>

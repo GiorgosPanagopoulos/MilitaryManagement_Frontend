@@ -1,35 +1,22 @@
 import React, { useState } from "react";
-import axios from "../axios"; // ✅ Βεβαιώσου ότι υπάρχει το αρχείο axios.ts
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-
-// ✅ Τύπος για την απάντηση του login
-interface LoginResponse {
-  token: string;
-  role: string;
-}
+import useAuth from "../context/AuthContext";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await axios.post<LoginResponse>("/auth/login", {
-        email,
-        password,
-      });
-
-      console.log("✅ Login response:", res.data); // <-- Εδώ βλέπεις αν επιστρέφει σωστά
-
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("role", res.data.role);
+      await login(email, password); // 🔁 καλούμε login από το context
       toast.success("Επιτυχής σύνδεση");
       navigate("/");
     } catch (err) {
-      console.error(err);
+      console.error("❌ Login error:", err);
       toast.error("Λάθος στοιχεία");
     }
   };
