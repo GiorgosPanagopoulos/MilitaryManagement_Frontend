@@ -20,14 +20,15 @@ const AuthContext = createContext<AuthContextType>({
     logout: () => {},
 });
 
-// Πάροχος
+// ✅ ΠΡΟΣΘΗΚΗ για χρήση στα tests
+export { AuthContext };
+
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [token, setToken] = useState<string | null>(null);
     const [role, setRole] = useState<string | null>(null);
     const [email, setEmail] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
-    // Αρχική φόρτωση από localStorage
     useEffect(() => {
         const storedToken = localStorage.getItem("token");
         const storedRole = localStorage.getItem("role");
@@ -39,7 +40,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setIsLoading(false);
     }, []);
 
-    // 🔐 Login – κάνε POST στο backend για token
     const login = async (email: string, password: string) => {
         const response = await fetch("http://localhost:5001/api/auth/login", {
             method: "POST",
@@ -64,7 +64,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setEmail(data.email);
     };
 
-    // 🔓 Logout
     const logout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("role");
@@ -82,6 +81,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     );
 };
 
-// Hook για χρήση σε components
+// Default hook
 const useAuth = () => useContext(AuthContext);
 export default useAuth;

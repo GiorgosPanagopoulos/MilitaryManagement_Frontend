@@ -39,22 +39,29 @@ export default function DashboardPage() {
       <div className="p-6 max-w-6xl mx-auto">
         {/* ✅ Responsive Logo και Τίτλος */}
         <div className="flex flex-col items-center mb-6">
-          <img
-              src={logo}
-              alt="MilMan Logo"
-              className="h-20 sm:h-24 md:h-28 lg:h-32 object-contain transition-opacity duration-500"
-          />
-          <h1 className="text-3xl font-bold text-center mt-4">
-            Καλώς ήρθατε στο Military Management
-          </h1>
+          <div className="p-4 rounded-lg shadow-md bg-white dark:bg-gray-800 border border-gray-300 dark:border-transparent transition-colors">
+            <img
+                src={logo}
+                alt="MilMan Logo"
+                className="h-20 sm:h-24 md:h-28 lg:h-32 object-contain transition-opacity duration-500"
+            />
+          </div>
+
+          {/* 🪖 Τίτλος & Υπότιτλος */}
+          <div className="text-center mt-4">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-stencil font-bold uppercase tracking-wide text-gray-800 dark:text-white">
+              ΣΥΣΤΗΜΑ ΕΚΠΑΙΔΕΥΣΗΣ ΣΤΕΛΕΧΩΝ
+            </h1>
+            <p className="text-sm sm:text-base md:text-lg font-robotoMono tracking-widest text-gray-500 dark:text-gray-400">
+              MILITARY MANAGEMENT
+            </p>
+          </div>
         </div>
 
         {/* 🟣 Κινούμενο Banner */}
-        <div className="overflow-hidden rounded-lg bg-indigo-600 text-white shadow mb-8 h-12 flex items-center">
-          <p className="whitespace-nowrap animate-marquee px-4 font-medium">
-            🎯 Παρακολούθησε εκπαιδεύσεις, πρόσθεσε νέο προσωπικό και δες αναφορές - όλα σε μία εφαρμογή!
-          </p>
-        </div>
+        <p className="whitespace-nowrap animate-marquee text-gray-800 dark:text-white text-center font-medium mb-8">
+          🎯 Παρακολούθησε εκπαιδεύσεις, πρόσθεσε νέο προσωπικό και δες αναφορές - όλα σε μία εφαρμογή!
+        </p>
 
         {/* 🔘 Κουμπιά Dashboard */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">

@@ -21,6 +21,10 @@ module.exports = {
           '100%': { transform: 'translateX(-100%)' },
         },
       },
+      fontFamily: {
+        robotoMono: ['"Roboto Mono"', 'monospace'],
+        stencil: ['"Stardos Stencil"', 'serif'],
+      },
     },
   },
   plugins: [],

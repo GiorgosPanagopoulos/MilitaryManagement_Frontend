@@ -1,4 +1,3 @@
-
 # ⚓ MilitaryManagement_Frontend
 
 Frontend εφαρμογή διαχείρισης στρατιωτικού προσωπικού & εκπαιδεύσεων για το Πολεμικό Ναυτικό.
@@ -52,25 +51,8 @@ npm run build
 
 ## 📤 Deploy
 
-Μπορεί να γίνει deploy στον Netlify, GitHub Pages ή άλλο static hosting, απλώς ανεβάζοντας τον φάκελο `dist`.
+Μπορεί να γίνει deploy σε οποιοδήποτε static hosting (π.χ. GitHub Pages), ανεβάζοντας απλώς τον φάκελο `dist`.
 
----
-
-## 📁 Δομή Project
-
-```
-src/
-├── assets/
-├── components/
-│   ├── navbar/
-│   ├── personnel/
-│   └── training/
-├── pages/
-├── App.tsx
-├── index.tsx
-├── axios.ts
-└── ...
-```
 
 ---
 
@@ -84,10 +66,11 @@ src/
 ## 👤 Συντάκτης
 
 George Panagopoulos  
-📧 george6627@hotmail.com
+📧 george6627@hotmail.com  
 🔗 [GitHub](https://github.com/GiorgosPanagopoulos)
 
 ---
+
 ## 📄 Άδεια
 
 MIT © 2025 Giorgos Panagopoulos
