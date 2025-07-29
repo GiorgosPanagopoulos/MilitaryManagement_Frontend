@@ -85,10 +85,14 @@ export default function TrainingForm({
             </div>
 
             <div>
-                <label className="block font-semibold mb-1 dark:text-gray-200">
+                <label
+                    htmlFor="personnel"
+                    className="block font-semibold mb-1 dark:text-gray-200"
+                >
                     Προσωπικό που έχει διέλθει:
                 </label>
                 <select
+                    id="personnel"
                     {...register("personnel")}
                     multiple
                     className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white rounded px-3 py-2 text-sm h-32"

@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
-import PersonnelForm from "./PersonnelForm";
+import PersonnelForm from "../personnel/PersonnelForm";
 
 describe("PersonnelForm", () => {
   it("renders all input fields", () => {
