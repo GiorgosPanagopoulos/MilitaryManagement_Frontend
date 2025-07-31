@@ -12,6 +12,7 @@ Frontend εφαρμογή διαχείρισης στρατιωτικού προ
 
 - React 18 + TypeScript
 - Vite
+- Vitest
 - Tailwind CSS
 - Axios
 - React Router DOM
@@ -60,7 +61,7 @@ npm run build
 
 - Το backend τρέχει ξεχωριστά και η επικοινωνία γίνεται μέσω Axios.
 - Για τον πλήρη έλεγχο πρόσβασης, χρησιμοποιείται JWT authentication.
-
+- Το AuthContext διαχειρίζεται την κατάσταση σύνδεσης και τον ρόλο του χρήστη.
 ---
 
 ## 👤 Συντάκτης
