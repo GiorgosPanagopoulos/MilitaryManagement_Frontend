@@ -6,6 +6,7 @@ import {
   FaCalendarAlt,
 } from "react-icons/fa";
 import logo from "../assets/logo.png";
+import { Code } from "lucide-react"; // Μπορείς να αλλάξεις σε react-icons αν θες
 
 export default function DashboardPage() {
   const cards = [
@@ -37,7 +38,7 @@ export default function DashboardPage() {
 
   return (
       <div className="p-6 max-w-6xl mx-auto">
-        {/* ✅ Responsive Logo και Τίτλος */}
+        {/* ✅ Logo και Τίτλος */}
         <div className="flex flex-col items-center mb-6">
           <div className="p-4 rounded-lg shadow-md bg-white dark:bg-gray-800 border border-gray-300 dark:border-transparent transition-colors">
             <img
@@ -47,7 +48,6 @@ export default function DashboardPage() {
             />
           </div>
 
-          {/* 🪖 Τίτλος & Υπότιτλος */}
           <div className="text-center mt-4">
             <h1 className="text-xl sm:text-2xl md:text-3xl font-stencil font-bold uppercase tracking-wide text-gray-800 dark:text-white">
               ΣΥΣΤΗΜΑ ΕΚΠΑΙΔΕΥΣΗΣ ΣΤΕΛΕΧΩΝ
@@ -58,10 +58,16 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* 🟣 Κινούμενο Banner */}
-        <p className="whitespace-nowrap animate-marquee text-gray-800 dark:text-white text-center font-medium mb-8">
-          🎯 Παρακολούθησε εκπαιδεύσεις, πρόσθεσε νέο προσωπικό και δες αναφορές - όλα σε μία εφαρμογή!
-        </p>
+        {/* ✅ Νέο Fancy Banner με marquee */}
+        <div className="overflow-hidden w-full max-w-full mb-8">
+          <div className="inline-flex items-center animate-marquee whitespace-nowrap px-6 py-3 bg-gradient-to-r from-cyan-500 to-teal-600 text-white rounded-full shadow-md w-fit mx-auto">
+            <Code className="w-5 h-5 text-indigo-300 mr-2 shrink-0" />
+            <span className="font-medium">
+            Παρακολούθησε εκπαιδεύσεις, πρόσθεσε νέο προσωπικό και δες αναφορές - όλα σε μία εφαρμογή!
+          </span>
+            <span className="ml-2 text-white">|</span>
+          </div>
+        </div>
 
         {/* 🔘 Κουμπιά Dashboard */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
