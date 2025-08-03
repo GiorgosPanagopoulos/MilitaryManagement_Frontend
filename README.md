@@ -7,9 +7,11 @@ Frontend εφαρμογή διαχείρισης στρατιωτικού προ
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![React](https://img.shields.io/badge/React-18.x-blue?logo=react)
 ![Vite](https://img.shields.io/badge/Vite-%5E4.0-purple?logo=vite)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.4-blue?logo=typescript)
 ![Vitest](https://img.shields.io/badge/Vitest-tested-brightgreen?logo=vitest)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.x-teal?logo=tailwindcss)
 ![Last Commit](https://img.shields.io/github/last-commit/GiorgosPanagopoulos/MilitaryManagement_Frontend)
+
 
 ---
 
