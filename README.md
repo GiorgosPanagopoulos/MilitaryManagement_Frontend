@@ -12,7 +12,6 @@ Frontend εφαρμογή διαχείρισης στρατιωτικού προ
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.x-teal?logo=tailwindcss)
 ![Last Commit](https://img.shields.io/github/last-commit/GiorgosPanagopoulos/MilitaryManagement_Frontend)
 
-
 ---
 
 ## 🧰 Τεχνολογίες
@@ -22,8 +21,7 @@ Frontend εφαρμογή διαχείρισης στρατιωτικού προ
 - ✅ React Router DOM
 - ✅ Axios
 - ✅ Tailwind CSS (με responsive breakpoints & dark mode)
-- ✅ Jest + React Testing Library
-- ✅ Vitest (unit tests)
+- ✅ Vitest + React Testing Library
 - ✅ Role-based authentication (JWT)
 - ✅ Protected routes (PrivateRoute)
 - ✅ Context API για Auth (AuthContext)
@@ -64,30 +62,21 @@ npm run dev
 
 ## 🧪 Τεστ
 
-### ✅ Εκτέλεση με Jest
+### ✅ Εκτέλεση με Vitest
 
 ```bash
 npm test
 ```
 
-> Χρησιμοποιείται React Testing Library για component testing.
-
----
-
-### ✅ Εκτέλεση με Vitest (unit tests)
-
-```bash
-npx vitest run
-```
-
-> Εκτελεί unit tests με χρήση Vitest, χωρίς να απαιτεί script.
-
----
+> Εκτελεί unit tests με χρήση Vitest και React Testing Library.
 
 ### 📊 Κάλυψη
 
-- Όλα τα βασικά components καλύπτονται με tests
-- Δείκτης κάλυψης: **100%**
+```bash
+npm run coverage
+```
+
+> Δημιουργεί αναφορά κάλυψης κώδικα.
 
 ---
 
